@@ -4,6 +4,8 @@ import { SortableContext } from '@dnd-kit/sortable';
 
 import { IArticle } from '../interfaces/IArticle';
 import { DroppableZone } from './DroppableZone';
+import { controller } from '../controllers/RootController';
+import { observer } from 'mobx-react-lite';
 
 interface Props {
     category: string;
@@ -13,11 +15,11 @@ interface Props {
         card: IArticle | null;
     }[];
     isDisabled: boolean;
-    onAddDroppableZone: (category: string) => void;
-    onRemoveDroppableZone: (category: string) => void;
 }
 
-export const Category: React.FC<Props> = ({ category, title, items, isDisabled, onAddDroppableZone, onRemoveDroppableZone }) => {
+export const Category: React.FC<Props> = observer(({ category, title, items, isDisabled }) => {
+    const { onAddDroppableZone, onRemoveDroppableZone } = controller.monthInfo;
+
     const handleAddDroppableZone = () => {
         onAddDroppableZone(category);
     };
@@ -55,4 +57,4 @@ export const Category: React.FC<Props> = ({ category, title, items, isDisabled, 
             </SortableContext>
         </Box>
     );
-};
+});
