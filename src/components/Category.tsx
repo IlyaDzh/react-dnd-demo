@@ -1,8 +1,9 @@
 import { Box, Heading, IconButton, SimpleGrid, Text } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { SortableContext } from '@dnd-kit/sortable';
 
 import { IArticle } from '../interfaces/IArticle';
-import { DropZone } from './DropZone';
+import { DroppableZone } from './DroppableZone';
 
 interface Props {
     category: string;
@@ -12,17 +13,17 @@ interface Props {
         card: IArticle | null;
     }[];
     isDisabled: boolean;
-    onAddDropZone: (category: string) => void;
-    onRemoveDropZone: (category: string) => void;
+    onAddDroppableZone: (category: string) => void;
+    onRemoveDroppableZone: (category: string) => void;
 }
 
-export const Category: React.FC<Props> = ({ category, title, items, isDisabled, onAddDropZone, onRemoveDropZone }) => {
-    const handleAddDropZone = () => {
-        onAddDropZone(category);
+export const Category: React.FC<Props> = ({ category, title, items, isDisabled, onAddDroppableZone, onRemoveDroppableZone }) => {
+    const handleAddDroppableZone = () => {
+        onAddDroppableZone(category);
     };
 
-    const handleRemoveDropZone = () => {
-        onRemoveDropZone(category);
+    const handleRemoveDroppableZone = () => {
+        onRemoveDroppableZone(category);
     };
 
     return (
@@ -31,19 +32,27 @@ export const Category: React.FC<Props> = ({ category, title, items, isDisabled, 
                 <Heading as='h2' size='md'>
                     {title}
                 </Heading>
-                <IconButton aria-label='Add card' onClick={handleRemoveDropZone}>
+                <IconButton aria-label='Add card' onClick={handleRemoveDroppableZone}>
                     <MinusIcon />
                 </IconButton>
                 <Text>{items.length}</Text>
-                <IconButton aria-label='Remove card' onClick={handleAddDropZone}>
+                <IconButton aria-label='Remove card' onClick={handleAddDroppableZone}>
                     <AddIcon />
                 </IconButton>
             </Box>
-            <SimpleGrid columns={4} gap={3}>
-                {items.map(item => (
-                    <DropZone key={item.id} id={item.id} category={category} data={item.card} isDisabled={isDisabled} />
-                ))}
-            </SimpleGrid>
+            <SortableContext items={items.map(item => item.id)}>
+                <SimpleGrid columns={4} gap={3}>
+                    {items.map(item => (
+                        <DroppableZone
+                            key={item.id}
+                            id={item.id}
+                            category={category}
+                            data={item.card}
+                            isDisabled={isDisabled}
+                        />
+                    ))}
+                </SimpleGrid>
+            </SortableContext>
         </Box>
     );
 };

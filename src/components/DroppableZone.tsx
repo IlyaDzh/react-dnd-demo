@@ -1,6 +1,6 @@
-import { useDroppable } from '@dnd-kit/core';
 import { Box, Heading, Stack, Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import { useSortable } from '@dnd-kit/sortable';
 
 import { IArticle } from '../interfaces/IArticle';
 
@@ -11,13 +11,17 @@ interface Props {
     isDisabled: boolean;
 }
 
-export const DropZone: React.FC<Props> = ({ id, data, category, isDisabled }) => {
-    const { setNodeRef } = useDroppable({
+export const DroppableZone: React.FC<Props> = ({ id, data, category, isDisabled }) => {
+    const { setNodeRef, attributes, listeners } = useSortable({
         id,
         data: {
             category,
+            ...data,
         },
+        disabled: !data,
     });
+
+    const handleZoneClick = event => {};
 
     return (
         <Box
@@ -28,6 +32,9 @@ export const DropZone: React.FC<Props> = ({ id, data, category, isDisabled }) =>
             alignItems='center'
             justifyContent='center'
             opacity={isDisabled ? 0.2 : 1}
+            {...attributes}
+            {...listeners}
+            onClick={handleZoneClick}
         >
             {data ? (
                 <Stack spacing={1} alignItems='center'>

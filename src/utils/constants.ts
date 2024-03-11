@@ -13,10 +13,10 @@ export const MONTHS = [
     { key: 'december', name: 'Декабрь' },
 ];
 
-export const CATEGORIES = [
-    { key: 'jackets', name: 'Пуховики' },
-    { key: 't-shirts', name: 'Футболки' },
-    { key: 'hats', name: 'Шапки' },
-    { key: 'sneakers', name: 'Кроссовки' },
-    { key: 'sweatshirt', name: 'Свитер' },
-];
+export const CATEGORIES = {
+    jackets: 'Пуховики',
+    't-shirts': 'Футболки',
+    hats: 'Шапки',
+    sneakers: 'Кроссовки',
+    sweatshirt: 'Свитер',
+};

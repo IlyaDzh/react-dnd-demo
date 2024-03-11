@@ -1,16 +1,15 @@
 import { Box, Card, CardBody, CardHeader, Heading, IconButton, Image, Stack, Text } from '@chakra-ui/react';
-
-import { IArticle } from '../interfaces/IArticle';
-
-import placeholderImg from '../images/placeholder.jpg';
 import { useDraggable } from '@dnd-kit/core';
 import { DragHandleIcon } from '@chakra-ui/icons';
+
+import { IArticle } from '../interfaces/IArticle';
+import placeholderImg from '../images/placeholder.jpg';
 
 interface Props {
     data: IArticle;
 }
 
-export const ArticleItem: React.FC<Props> = ({ data }) => {
+export const DraggableArticle: React.FC<Props> = ({ data }) => {
     const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
         id: data.id,
         data,
