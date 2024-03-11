@@ -1,4 +1,5 @@
-import { Header } from "./components/Header";
+import { Header } from "./components/layout/Header";
+import { ModalNest } from "./components/layout/ModalNest";
 import { MainPage } from "./pages/MainPage";
 
 export const App: React.FC = () => {
@@ -7,6 +8,7 @@ export const App: React.FC = () => {
             <Header />
             <main>
                 <MainPage />
+                <ModalNest />
             </main>
         </div>
     );

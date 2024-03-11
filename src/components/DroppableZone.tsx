@@ -1,8 +1,10 @@
 import { Box, Heading, Stack, Text } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import { useSortable } from '@dnd-kit/sortable';
+import { observer } from 'mobx-react-lite';
 
 import { IArticle } from '../interfaces/IArticle';
+import { controller } from '../controllers/RootController';
 
 interface Props {
     id: string;
@@ -11,7 +13,9 @@ interface Props {
     isDisabled: boolean;
 }
 
-export const DroppableZone: React.FC<Props> = ({ id, data, category, isDisabled }) => {
+export const DroppableZone: React.FC<Props> = observer(({ id, data, category, isDisabled }) => {
+    const { openCreateArticleModal } = controller.createArticle;
+
     const { setNodeRef, attributes, listeners } = useSortable({
         id,
         data: {
@@ -20,8 +24,6 @@ export const DroppableZone: React.FC<Props> = ({ id, data, category, isDisabled 
         },
         disabled: !data,
     });
-
-    const handleZoneClick = event => {};
 
     return (
         <Box
@@ -34,7 +36,7 @@ export const DroppableZone: React.FC<Props> = ({ id, data, category, isDisabled 
             opacity={isDisabled ? 0.2 : 1}
             {...attributes}
             {...listeners}
-            onClick={handleZoneClick}
+            onClick={openCreateArticleModal}
         >
             {data ? (
                 <Stack spacing={1} alignItems='center'>
@@ -50,4 +52,4 @@ export const DroppableZone: React.FC<Props> = ({ id, data, category, isDisabled 
             )}
         </Box>
     );
-};
+});
