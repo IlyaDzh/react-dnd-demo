@@ -37,7 +37,7 @@ export const DraggableArticle: React.FC<Props> = ({ data }) => {
                         <Heading size='sm'>№{data.id}</Heading>
                         <Text fontSize={12}>Категория: {data.category}</Text>
                         <Text fontSize={12}>Цвет: {data.color}</Text>
-                        <Text fontSize={12}>Размер: {data.size}</Text>
+                        <Text fontSize={12}>Размер: {data.sizes}</Text>
                         <Text fontSize={12}>Себестоимость: {data.cost} руб.</Text>
                         <Text fontSize={12}>РЦ: {data.price} руб.</Text>
                     </Stack>

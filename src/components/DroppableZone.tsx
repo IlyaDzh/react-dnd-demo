@@ -36,14 +36,14 @@ export const DroppableZone: React.FC<Props> = observer(({ id, data, category, is
             opacity={isDisabled ? 0.2 : 1}
             {...attributes}
             {...listeners}
-            onClick={openCreateArticleModal}
+            onClick={() => openCreateArticleModal(id)}
         >
             {data ? (
                 <Stack spacing={1} alignItems='center'>
                     <Heading size='sm'>№{data.id}</Heading>
                     <Text fontSize={10}>Категория: {data.category}</Text>
                     <Text fontSize={10}>Цвет: {data.color}</Text>
-                    <Text fontSize={10}>Размер: {data.size}</Text>
+                    <Text fontSize={10}>Размер: {data.sizes}</Text>
                     <Text fontSize={10}>Себестоимость: {data.cost} руб.</Text>
                     <Text fontSize={10}>РЦ: {data.price} руб.</Text>
                 </Stack>

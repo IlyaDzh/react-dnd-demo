@@ -10,9 +10,9 @@ export class RootController {
     monthInfo: MonthInfoController;
 
     constructor() {
-        this.articles = new ArticlesController(this);
+        this.articles = new ArticlesController();
+        this.monthInfo = new MonthInfoController();
         this.createArticle = new CreateArticleController(this);
-        this.monthInfo = new MonthInfoController(this);
 
         makeAutoObservable(this);
     }

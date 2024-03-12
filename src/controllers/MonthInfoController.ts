@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx';
 
-import { RootController } from './RootController';
 import { IMonthInfo } from '../interfaces/IMonthInfo';
 import { IArticle } from '../interfaces/IArticle';
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
@@ -12,15 +11,11 @@ const initialDroppableZones = (category: string) =>
     }));
 
 export class MonthInfoController {
-    root: RootController;
-
     droppableZones: IMonthInfo;
 
     activeArticle: IArticle | null = null;
 
-    constructor(root: RootController) {
-        this.root = root;
-
+    constructor() {
         this.droppableZones = {
             jackets: initialDroppableZones('jackets'),
             't-shirts': initialDroppableZones('t-shirts'),
@@ -52,11 +47,11 @@ export class MonthInfoController {
 
                 this.droppableZones[activeCategory] = this.droppableZones[activeCategory].map(zone => {
                     if (zone.id === over.id) {
-                        return { ...zone, card: oldItem?.card };
+                        return { ...zone, card: oldItem ? oldItem.card : null };
                     }
 
                     if (zone.id === active.id) {
-                        return { ...zone, card: newItem?.card };
+                        return { ...zone, card: newItem ? newItem.card : null };
                     }
 
                     return zone;
@@ -64,13 +59,23 @@ export class MonthInfoController {
             } else {
                 this.droppableZones[activeCategory] = this.droppableZones[activeCategory].map(zone => {
                     if (zone.id === over.id) {
-                        return { ...zone, card: active.data.current };
+                        return { ...zone, card: active.data.current as IArticle };
                     }
 
                     return zone;
                 });
             }
         }
+    };
+
+    setArticleInDroppableZone = (article: IArticle, zoneId: string) => {
+        this.droppableZones[article.category] = this.droppableZones[article.category].map(zone => {
+            if (zone.id === zoneId) {
+                return { ...zone, card: article };
+            }
+
+            return zone;
+        });
     };
 
     onAddDroppableZone = (category: string) => {

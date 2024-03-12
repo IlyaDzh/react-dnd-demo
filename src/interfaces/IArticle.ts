@@ -2,7 +2,9 @@ export interface IArticle {
     id: string;
     category: string;
     color: string;
-    size: 's' | 'm' | 'l' | 'xl';
+    sizes: string[];
     price: number;
     cost: number;
+    months: string[];
+    comment?: string;
 }
